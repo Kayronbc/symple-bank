@@ -21,6 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'nome',
+        'perfil_id',
     ];
 
     /**
@@ -45,4 +47,20 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function perfil()
+{
+    return $this->belongsTo(Perfil::class, 'perfil_id');
+}
+
+public function solicitacoesAbertas()
+{
+    return $this->hasMany(Solicitacao::class, 'usuario_solicitante_id');
+}
+
+public function solicitacoesAtribuidas()
+{
+    return $this->hasMany(Solicitacao::class, 'responsavel_id');
+}
+
 }
